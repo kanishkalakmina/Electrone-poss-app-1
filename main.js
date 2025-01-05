@@ -1,5 +1,14 @@
 const { app, BrowserWindow, protocol } = require('electron')
 const path = require('path')
+const sqlite3 = require('sqlite3').verbose()
+
+const db = new sqlite3.Database(path.join(__dirname, 'PossApp.db'), (err) => {
+    if(err){
+        console.error('Database connection failed:', err.message);
+    } else {
+        console.log('Database connection successful');
+    }
+});
 
 function createWindow() {
     const win = new BrowserWindow({
