@@ -1,15 +1,113 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
+<head>
     <meta charset="UTF-8">
-    <!-- https://developer.mozilla.org/en-US/docs/Web/HTTP/CSP -->
-    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'">
-    <title>Hello World!</title>
-  </head>
-  <body>
-    <h1>Hello World!</h1>
-    We are using Node.js <span id="node-version"></span>,
-    Chromium <span id="chrome-version"></span>,
-    and Electron <span id="electron-version"></span>.
-  </body>
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self' 'unsafe-inline' https: file:; img-src 'self' data: file: https:; script-src 'self' 'unsafe-inline';">
+    <title>POS System</title>
+    <link rel="stylesheet" href="styles/main.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+    <div class="container">
+        <!-- Left Navigation -->
+        <nav class="side-nav">
+            <div class="nav-logo">
+                <h2>POS System</h2>
+            </div>
+            <ul class="nav-links">
+                <li><a href="products.html"><i class="fas fa-box"></i> Products</a></li>
+                <li><a href="categories.html"><i class="fas fa-tags"></i> Categories</a></li>
+                <li class="active"><a href="#"><i class="fas fa-cash-register"></i> Point of Sale</a></li>
+                <li><a href="#"><i class="fas fa-exchange-alt"></i> Transactions</a></li>
+                <li><a href="#"><i class="fas fa-folder-open"></i> Open Tabs</a></li>
+                <li><a href="#"><i class="fas fa-users"></i> Users</a></li>
+                <li><a href="#"><i class="fas fa-chart-bar"></i> Reports</a></li>
+                <li><a href="#"><i class="fas fa-shopping-bag"></i> Customer Orders</a></li>
+            </ul>
+        </nav>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <!-- Top Bar -->
+            <div class="top-bar">
+                <div class="search-bar">
+                    <input type="text" placeholder="Search menu items...">
+                    <i class="fas fa-search"></i>
+                </div>
+                <div class="category-tabs">
+                    <button class="active">All</button>
+                    <button>Beverages</button>
+                    <button>Main Course</button>
+                    <button>Fast Food</button>
+                </div>
+            </div>
+
+            <!-- Products Grid -->
+            <div class="products-grid">
+                <!-- Products will be dynamically added here -->
+            </div>
+
+            <!-- Pagination -->
+            <div class="pagination">
+                <button class="prev-btn"><i class="fas fa-chevron-left"></i></button>
+                <div class="page-dots">
+                    <span class="dot active"></span>
+                    <span class="dot"></span>
+                    <span class="dot"></span>
+                </div>
+                <button class="next-btn"><i class="fas fa-chevron-right"></i></button>
+            </div>
+        </main>
+
+        <!-- Right Side Cart -->
+        <div class="cart-panel">
+            <div class="cart-header">
+                <h2>Order Details</h2>
+                <button class="add-customer-btn">
+                    <i class="fas fa-user-plus"></i> Add Customer
+                </button>
+            </div>
+
+            <div class="cart-items">
+                <!-- Cart items will be added here dynamically -->
+            </div>
+
+            <div class="cart-summary">
+                <div class="summary-row">
+                    <span>Items</span>
+                    <span id="items-count">0</span>
+                </div>
+                <div class="summary-row">
+                    <span>Subtotal</span>
+                    <span id="subtotal">₹0.00</span>
+                </div>
+                <div class="summary-row">
+                    <span>Discount</span>
+                    <div class="discount-input">
+                        <input type="number" id="discount" value="0" min="0">
+                        <select id="discount-type">
+                            <option value="percentage">%</option>
+                            <option value="amount">₹</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="summary-row">
+                    <span>Tax (18%)</span>
+                    <span id="tax">₹0.00</span>
+                </div>
+                <div class="summary-row total">
+                    <span>Total</span>
+                    <span id="total">₹0.00</span>
+                </div>
+            </div>
+
+            <div class="cart-actions">
+                <button class="action-btn pay-btn">Pay</button>
+                <button class="action-btn hold-btn">Hold</button>
+                <button class="action-btn cancel-btn">Cancel</button>
+            </div>
+        </div>
+    </div>
+    <script src="scripts/renderer.js"></script>
+</body>
 </html>
