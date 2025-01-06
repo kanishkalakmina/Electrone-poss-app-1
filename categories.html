@@ -70,14 +70,62 @@
             border: none;
             padding: 0;
         }
+        .back-btn {
+            margin-right: 10px;
+        }
+        .add-category-btn {
+            margin-left: 10px;
+        }
+        /* Modal styles */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0,0,0,0.4);
+        }
+        .modal-content {
+            background-color: #fefefe;
+            margin: 15% auto;
+            padding: 20px;
+            border: 1px solid #888;
+            width: 80%;
+        }
+        .close-modal {
+            color: #aaa;
+            float: right;
+            font-size: 28px;
+            font-weight: bold;
+        }
+        .close-modal:hover,
+        .close-modal:focus {
+            color: black;
+            text-decoration: none;
+            cursor: pointer;
+        }
     </style>
 </head>
 <body>
     <div class="header">
+        <button class="back-btn">&#8592; Back</button>
         <h2>Categories</h2>
         <button class="close-btn">×</button>
+        <button class="add-category-btn">Add Category</button>
         <div>
             <input type="text" class="search-box" placeholder="Search..." id="searchInput">
+        </div>
+    </div>
+
+    <div id="addCategoryModal" class="modal" style="display: none;">
+        <div class="modal-content">
+            <span class="close-modal">&times;</span>
+            <h3>Add New Category</h3>
+            <label for="categoryInput">Category:</label>
+            <input type="text" id="categoryInput" placeholder="Enter category" />
+            <button id="submitCategoryBtn">Add</button>
         </div>
     </div>
 
@@ -110,6 +158,11 @@
 
             const tableBody = document.getElementById('categoriesTableBody');
             const searchInput = document.getElementById('searchInput');
+            const addCategoryModal = document.getElementById('addCategoryModal');
+            const addCategoryBtn = document.querySelector('.add-category-btn');
+            const categoryInput = document.getElementById('categoryInput');
+            const submitCategoryBtn = document.getElementById('submitCategoryBtn');
+            const closeModal = document.querySelector('.close-modal');
 
             function renderCategories(categoriesToRender) {
                 tableBody.innerHTML = '';
@@ -172,6 +225,33 @@
             // Close button functionality
             document.querySelector('.close-btn').addEventListener('click', () => {
                 window.history.back();
+            });
+
+            // Back button functionality
+            document.querySelector('.back-btn').addEventListener('click', () => {
+                window.history.back();
+            });
+
+            // Add category button functionality
+            addCategoryBtn.addEventListener('click', () => {
+                addCategoryModal.style.display = 'block';
+            });
+
+            // Close modal functionality
+            closeModal.addEventListener('click', () => {
+                addCategoryModal.style.display = 'none';
+            });
+
+            // Submit category functionality
+            submitCategoryBtn.addEventListener('click', () => {
+                const newCategoryName = categoryInput.value.trim();
+                if (newCategoryName) {
+                    categories.push({ name: newCategoryName });
+                    renderCategories(categories);
+                    updatePaginationInfo(categories);
+                    categoryInput.value = '';
+                    addCategoryModal.style.display = 'none';
+                }
             });
         });
     </script>
